@@ -18,6 +18,6 @@ A simple Chrome Extension for switching proxies
 
 # Preview
 
-![preview](/public/imgs/1.png) ![preview](/public/imgs/2.png)
+![preview](/public/imgs/3.png) ![preview](/public/imgs/2.png)
 
-![preview](/public/imgs/3.png) ![preview](/public/imgs/4.png)
+![preview](/public/imgs/4.png) ![preview](/public/imgs/1.png) 
