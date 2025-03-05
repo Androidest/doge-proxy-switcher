@@ -17,3 +17,11 @@ A simple Chrome Extension for switching proxies
 4. Reload the target web page
 
 # Preview
+
+![preview](/public/imgs/1.png)
+
+![preview](/public/imgs/2.png)
+
+![preview](/public/imgs/3.png)
+
+![preview](/public/imgs/4.png)
