@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>My Chrome Extension</title>
+	<link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+	<div class="app">
+		<p class="title"><img src="icons/icon_128.png"> Proxy Switcher</p>
+
+		<ol id="proxy-list"></ol>
+
+		<div class="button-container">
+			<button id="add-button" class="add-button">+</button>
+		</div>
+
+		<div id="field-container">
+			<hr class="divider" />
+			
+			<div class="field">
+				<div class="subtitle">Name:</div>
+				<input id="name" class="input-box" placeholder="xxx"> </input>
+			</div>
+
+			<div class="field">
+				<div class="subtitle">Scheme:</div>
+				<!-- <input id="scheme" class="input-box" placeholder="http"> </input> -->
+				<select id="scheme" class="input-box">
+					<option value="http">HTTP</option>
+					<option value="https">HTTPS</option>
+					<option value="socks4">SOCKS4</option>
+					<option value="socks5">SOCKS5</option>
+				</select>
+			</div>
+			
+			<div class="field">
+				<div class="subtitle">Host(IP):</div>
+				<input id="host" class="input-box" placeholder="127.0.0.1"> </input>
+			</div>
+
+			<div class="field">
+				<div class="subtitle">Port:</div>
+				<input id="port" class="input-box" placeholder="1081" type="number"> </input>
+			</div>
+
+			<div class="field">
+				<div class="subtitle">Bypass:</div>
+				<input id="bypassList" class="input-box" placeholder="*.examlple.com; ::1; 127.0.0.1"> </input>
+			</div>
+			
+			<div class="button-container">
+				<button id="delete-button" class="delete-button">Delete</button>
+			</div>
+
+			<hr class="divider" />
+		</div>
+
+		<author>By Stephen</author>
+	</div>
+
+	<div class="confirm-popup" id="confirmPopup">
+        <div class="confirm-content">
+            <p>Confirm to delete '<span>dbuaidgbfiwab</span>'?</p>
+            <button id="confirmYesBtn">Yes</button>
+            <button id="confirmNoBtn">No</button>
+        </div>
+    </div>
+
+	<script src="popup.js"></script>
+</body>
+
+</html>
