@@ -94,8 +94,16 @@ async function onSelectProxyItem(item, proxy, index) {
 		onRenderProxyFields(proxy);
 	}
 
+	document.querySelector('#success').style.display = 'none';
+	document.querySelector('#error').style.display = 'none';
 	// set proxy
-	apiRequest("bg_setSelectedProxy");
+	const status = await apiRequest("bg_setSelectedProxy");
+	if (status.success) {
+		document.querySelector('#success').style.display = 'block';
+	}
+	else {
+		document.querySelector('#error').style.display = 'block';
+	}
 }
 
 function onRenderProxyFields(proxy) {

@@ -230,3 +230,17 @@ author {
 .confirm-content button:hover {
     filter: brightness(0.7);
 }
+
+#error {
+    color: #b82525;
+    font-size: 12px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+#success {
+    color: #008000;
+    font-size: 12px;
+    margin-bottom: 10px;
+    display: none;
+}

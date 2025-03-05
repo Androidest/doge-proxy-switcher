@@ -10,6 +10,7 @@ registerApi({
 });
 
 var lastProxyConfig = '';
+var lastProxyStatus = { success: false }
 // set default proxy on background load
 bg_setSelectedProxy();
 
@@ -36,10 +37,11 @@ async function bg_setProxy(request, sender, sendResponse) {
     const configJson = JSON.stringify(proxyConfig);
     console.log('bg_setProxy:', configJson);
     if (configJson == lastProxyConfig) {
-        sendResponse && sendResponse({ success: true });
+        sendResponse && sendResponse(lastProxyStatus);
         return;
     }
 
+    lastProxyStatus = { success: false };
     lastProxyConfig = configJson;
 
     try {
@@ -49,30 +51,39 @@ async function bg_setProxy(request, sender, sendResponse) {
         }, function () {
             if (chrome.runtime.lastError) {
                 console.error('Error setting proxy:', chrome.runtime.lastError);
-                sendResponse && sendResponse({ success: false, error: chrome.runtime.lastError.message });
+                lastProxyStatus = { success: false, error: chrome.runtime.lastError.message };
             } else {
                 chrome.action.setBadgeText({text: badgeText});
                 chrome.action.setBadgeBackgroundColor({ color: "#00FF00" });
                 console.log('Proxy set successfully to:\n', proxyConfig);
-                sendResponse && sendResponse({ success: true });
+                lastProxyStatus = { success: true };
             }
+            sendResponse && sendResponse(lastProxyStatus);
         });
     }
     catch (e) {
-        sendResponse && sendResponse({ success: false, error: e.message });
+        lastProxyStatus = { success: false, error: e.message };
+        sendResponse && sendResponse(lastProxyStatus);
     }
-    
-    return false;
 }
 
 async function bg_clearProxy(request, sender, sendResponse) {
-    chrome.proxy.settings.clear({ scope: 'regular' }, function () {
-        if (chrome.runtime.lastError) {
-            console.error('Error clearing proxy:', chrome.runtime.lastError);
-        } else {
-            lastProxyConfig = '';
-            chrome.action.setBadgeText({text: ""});
-            console.log('Proxy cleared successfully');
-        }
-    });
+    try {
+        chrome.proxy.settings.clear({ scope: 'regular' }, function () {
+            if (chrome.runtime.lastError) {
+                console.error('Error clearing proxy:', chrome.runtime.lastError);
+                lastProxyStatus = { success: false, error: chrome.runtime.lastError.message };
+            } else {
+                lastProxyConfig = '';
+                chrome.action.setBadgeText({text: ""});
+                console.log('Proxy cleared successfully');
+                lastProxyStatus = { success: true };
+            }
+            sendResponse && sendResponse(lastProxyStatus);
+        });
+    }
+    catch (e) {
+        lastProxyStatus = { success: false, error: e.message };
+        sendResponse && sendResponse(lastProxyStatus);
+    }
 }
